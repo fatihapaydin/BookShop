@@ -7,6 +7,12 @@ namespace Domain
         public string Name { get; set; }
 
         public int PageCount { get; set; }
+    }
 
+    public class NewBookModel
+    {
+        public string Name { get; set; }
+
+        public int PageCount { get; set; }
     }
 }

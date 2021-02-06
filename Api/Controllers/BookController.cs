@@ -9,14 +9,21 @@ namespace Api.Controllers
     {
         readonly IBlBook _blBook;
 
-        public BookController(BlBook blBook)
+        public BookController(IBlBook blBook)
         {
             _blBook = blBook;
         }
 
         public List<ListBookModel> List(string query)
         {
+            query = query ?? "";
             return _blBook.List(query);
+        }
+
+        [HttpPost]
+        public Result<NewBookModel> New([FromBody] NewBookModel model)
+        {
+            return _blBook.Add(model);
         }
 
 

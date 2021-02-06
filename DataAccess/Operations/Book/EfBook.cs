@@ -7,6 +7,7 @@ namespace DataAccess
     public interface IEfBook
     {
         List<ListBookModel> List(string query);
+        Result<NewBookModel> Add(NewBookModel model);
     }
 
     public class EfBook : IEfBook
@@ -27,5 +28,20 @@ namespace DataAccess
                 PageCount = j.PageCount
             }).ToList();
         }
+
+        public Result<NewBookModel> Add(NewBookModel model)
+        {
+            var newRecord = db.Books.Add(new Book
+            {
+                Name = model.Name,
+                PageCount = model.PageCount
+            });
+
+            db.SaveChanges();
+
+            return new Result<NewBookModel>(newRecord.Entity.Id);
+        }
+
+
     }
 }

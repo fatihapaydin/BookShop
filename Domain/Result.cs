@@ -10,31 +10,21 @@ namespace Domain
 
         public int Id { get; set; }
 
-        public T Value { get; set; }
-
         public Result()
         {
             IsErrorExists = true;
         }
 
-        public Result(List<string> errorList)
+        public Result(string error)
         {
-            IsErrorExists = errorList != null && errorList.Count > 0;
-            ErrorList = errorList;
+            var errorExists = !string.IsNullOrWhiteSpace(error);
+            IsErrorExists = errorExists;
+            ErrorList = errorExists ? new List<string> { error } : null;
         }
-
         public Result(int id)
         {
             Id = id;
         }
-
-        public Result(T value, string errorMessage = "")
-        {
-            Value = value;
-            IsErrorExists = value == null;
-            ErrorList = new List<string> { errorMessage };
-        }
-
     }
 
 }
